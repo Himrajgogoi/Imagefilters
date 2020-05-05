@@ -1,0 +1,115 @@
+<!doctype html><html lang="en"><head> 
+  <meta charset="utf-8"> 
+  <title>greyscale</title> 
+  <script type="text/javascript" src="http://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js">
+   </script> 
+ <style type="text/css" id="dcoder_stylesheet">#c1{
+  width: 200px;
+  height: 120px;
+  border: 2px solid;
+  border-color: black;
+  
+ 
+}
+#c2{
+  width: 200px;
+  height: 120px;
+  border: 2px solid;
+  border-color: black;
+}
+h1{
+  text-align: center;
+  color: lightblue;
+  background-color: black;
+  font-size: 18pt;
+  font-family: "Times New Roman", Times, serif;
+
+}
+p{
+  font-size: 15pt;
+  color: vantablack;
+  font-family: "Times New Roman", Times, serif;
+}
+li{
+  font-size: 15pt;
+  color: darkblue;
+  font-family: "Times New Roman", Times, serif;
+}
+body{
+  border: 3px solid;
+  border-color: black;
+  background-image: url("/storage/emulated/0/Download/page3.jpeg");
+}
+#link{
+  font-size: 12pt;
+  color: darkblue;
+  text-align: justify;
+}
+h3{
+  color: red;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15pt;
+}</style></head> 
+ <body> 
+  <header> 
+   <h1><b>BLUEHUE</b></h1> 
+  </header> 
+  <section> 
+   <p>This filter will give your picture a blue taint. You can follow the steps below- </p> 
+   <ol> 
+    <li><b>upload your image using the file button</b></li> 
+    <li><b>apply the bluehue filter by clicking on the bluehue button</b></li> 
+    <li><b>to see the original image click on the original image button</b></li> 
+    <li><b>clear the canvases by clicking on clear canvas button</b></li> 
+   </ol> 
+  </section> 
+  <h3>Canvas1</h3> 
+  <canvas id="c1"> 
+  </canvas> 
+  <input type="file" multiple="false" accept="image/*" id="file" onchange="doupload()"> 
+  <input type="button" value="bluehue" onclick="doblue()"> 
+  <h3>Canvas2</h3> 
+  <canvas id="c2"> 
+  </canvas> 
+  <input type="button" value="original image" onclick="original()"> 
+  <input type="button" value="clear canvases" onclick="doclear()"> 
+  <a href="page4.html"><b id="link">next page</b></a> 
+ 
+<script type="text/javascript" id="dcoder_script">var img1;
+var img2;
+function doupload(){
+  var f1= document.getElementById("file");
+  var cc1= document.getElementById("c1");
+  img1= new SimpleImage(f1);
+  img2= new SimpleImage(f1);
+  img1.drawTo(cc1);
+}
+function doblue(){
+  for(var pixel of img1.values()){
+    var avg=(pixel.getGreen()+pixel.getRed()+pixel.getBlue())/3;
+    if(avg<128){
+      pixel.setBlue(2*avg);
+      pixel.setGreen(0);
+      pixel.setRed(0);
+    }
+    else{
+      pixel.setBlue(255);
+      pixel.setGreen(2*avg-255);
+      pixel.setRed(2*avg-255);
+    }
+  }
+  var cc1= document.getElementById("c1");
+  img1.drawTo(cc1);
+}
+function original(){
+  var cc2= document.getElementById("c2");
+  img2.drawTo(cc2);
+}
+function doclear(){
+  var cc1= document.getElementById("c1");
+  var cc2= document.getElementById("c2");
+  var cntxt1= cc1.getContext("2d");
+  var cntxt2= cc2.getContext("2d");
+  cntxt1.clearRect(0,0,cc1.width,cc1.height);
+  cntxt2.clearRect(0,0,cc2.width,cc2.height);
+}</script></body></html>
